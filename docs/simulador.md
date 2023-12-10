@@ -14,12 +14,12 @@ hide:
 
       <div style="display: flex; flex-direction: column; text-align: center; margin-bottom: 10px; width: 120px;">
         <input type="number" id="pressao" name="pressao" style="border: 1px solid black; border-radius: 25px; height: 30px; text-align: center;" required>
-        <label for="pressao" style="font-style: italic; opacity: 0.7;">Pressão</label>
+        <label for="pressao" style="font-style: italic; opacity: 0.7;">Pressão (psi)</label>
       </div>
 
       <div style="display: flex; flex-direction: column; text-align: center; margin-bottom: 10px; width: 120px;">
         <input type="number" id="volume" name="volume" style="border: 1px solid black; border-radius: 25px; height: 30px; text-align: center;" required>
-        <label for="volume" style="font-style: italic; opacity: 0.7; word-wrap: break-word;">Volume D'água</label>
+        <label for="volume" style="font-style: italic; opacity: 0.7; word-wrap: break-word;">Volume D'água (ml)</label>
       </div>
 
       <div style="display: flex; flex-direction: column; text-align: center; margin-bottom: 10px; width: 120px;">
@@ -29,7 +29,7 @@ hide:
 
       <div style="display: flex; flex-direction: column; text-align: center; margin-bottom: 10px; width: 120px;">
         <input type="number" id="massa" name="massa" style="border: 1px solid black; border-radius: 25px; height: 30px; text-align: center;" required>
-        <label for="massa" style="font-style: italic; opacity: 0.7; word-wrap: break-word;">Massa do Foguete</label>
+        <label for="massa" style="font-style: italic; opacity: 0.7; word-wrap: break-word;">Massa do Foguete (kg)</label>
       </div>
 
       <button type="button" onclick="simular()" style="display: flex; align-items: center; justify-content: center; background-color: black; color: white; border: none; border-radius: 25px; padding: 10px 20px; cursor: pointer; height: 30px;">Simular</button>
