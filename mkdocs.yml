@@ -1,0 +1,31 @@
+repo_name: projeto-final
+site_name: Projeto Integrador 1
+repo_url: https://github.com/projeto-integrador-1-G2/projeto-final
+
+theme:
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: black
+      toggle:
+        icon: material/weather-sunny
+        name: Dark mode
+
+  # Palette toggle for dark mode
+    - scheme: slate
+      primary: black
+      toggle:
+        icon: material/weather-night
+        name: Light mode
+  
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.footer
+
+nav:
+  - Início:
+    - Simular Voos: simulador.md
+    - Consultar Voos: 
+      - Lançamento X: template_lancamentoX.md
