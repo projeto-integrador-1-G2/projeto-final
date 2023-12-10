@@ -68,12 +68,13 @@ while posicao_y >= 0:
 plt.figure(figsize=(12, 4))
 
 
-plt.plot(tempos, posicoes_y)
+plt.plot(tempos, posicoes_x)
 plt.xlabel('Tempo (s)')
 plt.ylabel('Altura (m)')
 plt.title('Altura x Tempo')
 plt.grid(True)
 plt.savefig('grafico_simulacao_h.png')
+plt.close()
 
 plt.plot(tempos, posicoes_x)
 plt.xlabel('Tempo (s)')
