@@ -41,7 +41,7 @@ def add_new_launch_data(markdown_path, launch_data, graph_paths, last_launch_num
     # Adicionar os caminhos dos gráficos ao novo lançamento
     for graph_path in graph_paths:
         graph_name = os.path.basename(graph_path)
-        new_launch_section.append(f'    <img src="./docs/{graph_name}" alt="{graph_name.split(".")[0]}" width="200"/>\n')
+        new_launch_section.append(f'    <img src="{graph_name}_{new_launch_number}.png" alt="{graph_name.split(".")[0]}" width="200"/>\n')
     new_launch_section.append('</div>\n\n')
 
     # Adicionar os dados do novo lançamento
@@ -71,9 +71,9 @@ all_launch_data = load_launch_data('./../codigo/launch_data.json')
 
 # Exemplo de caminhos dos gráficos (assumindo que eles já foram criados e salvos na pasta 'docs')
 graph_paths_example = [
-    './../docs/grafico_velocidade_2.png',
-    './../docs/grafico_distancia_2.png',
-    './../docs/grafico_aceleracao_2.png'
+    './../docs/grafico_aceleracao_lancamento',
+    './../docs/grafico_distancia_lancamento',
+    './../docs/grafico_velocidade_lancamento'
 ]
 
 # Depois de encontrar o último número de lançamento, se for 0, definir para 1 (primeiro lançamento)

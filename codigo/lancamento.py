@@ -49,7 +49,7 @@ def plot_speed_graph(data, start_time, end_time, launch_number):
     plt.title('Gráfico de Velocidade x Tempo')
     plt.xticks(rotation=45)
     plt.legend()
-    plt.savefig(f'grafico_velocidade_{launch_number}.png')
+    plt.savefig(f'./../docs/grafico_velocidade_{launch_number}.png')
 
 # Função para plotar o gráfico de Posição x Tempo
 def plot_position_graph(data, start_time, end_time, launch_number):
@@ -78,7 +78,7 @@ def plot_position_graph(data, start_time, end_time, launch_number):
     plt.title('Gráfico de Distância Percorrida x Tempo')
     plt.xticks(rotation=45)
     plt.legend()
-    plt.savefig(f'grafico_distancia_lancamento_{launch_number}.png')
+    plt.savefig(f'./../docs/grafico_distancia_lancamento_{launch_number}.png')
 
 
 def plot_acceleration_graph(data, start_time, end_time,launch_number):
@@ -103,7 +103,7 @@ def plot_acceleration_graph(data, start_time, end_time,launch_number):
     plt.title('Gráfico de Aceleração x Tempo')
     plt.xticks(rotation=45)
     plt.legend()
-    plt.savefig(f'grafico_aceleracao_lancamento_{launch_number}.png')
+    plt.savefig(f'./../docs/grafico_aceleracao_lancamento_{launch_number}.png')
 
 # Inicializando listas para armazenar os horários de início e fim
 start_times = []
@@ -136,8 +136,16 @@ gps_data['Speed'] = pd.to_numeric(gps_data['Speed'], errors='coerce')
 gps_data["Total Time"] = pd.to_numeric(gps_data["Total Time"], errors='coerce')
 gps_data.dropna(subset=['Time', 'Speed', 'Total Time'], inplace=True)
 
+markdown_template_path = './../docs/template_lancamentoX.md'
+
+with open(markdown_template_path, 'r') as md_file:
+    markdown_content = md_file.readlines()
+
+last_launch_number = find_last_launch_number(markdown_content)
+
+
 # Processando cada par de horários
 for i, (start_time, end_time) in enumerate(zip(start_times, end_times)):
-    plot_acceleration_graph(gps_data, start_time, end_time, i+1)
-    plot_position_graph(gps_data, start_time, end_time, i+1)
-    plot_speed_graph(gps_data, start_time, end_time, i+1)
+    plot_acceleration_graph(gps_data, start_time, end_time, last_launch_number+i+1)
+    plot_position_graph(gps_data, start_time, end_time, last_launch_number+i+1)
+    plot_speed_graph(gps_data, start_time, end_time, last_launch_number+i+1)
