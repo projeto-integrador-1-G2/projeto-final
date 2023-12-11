@@ -1,12 +1,48 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.constants import g
+import json
+
+# Caminho para o arquivo JSON onde os dados dos lançamentos serão armazenados
+launch_data_json_path = './../codigo/launch_data.json'
+
+# Função para carregar os dados dos lançamentos do arquivo JSON
+def load_launch_data(launch_data_path):
+    try:
+        with open(launch_data_path, 'r') as file:
+            launch_data = json.load(file)
+    except FileNotFoundError:
+        # Se o arquivo não existir, começamos com uma lista vazia
+        launch_data = []
+    return launch_data
+
+# Função para salvar os dados dos lançamentos no arquivo JSON
+def save_launch_data(launch_data, launch_data_path):
+    with open(launch_data_path, 'w') as file:
+        json.dump(launch_data, file, indent=4)
+
 
 # Solicitando entradas do usuário
-pressao_inicial_psi = float(input())
-quantidade_agua_ml = float(input())
-massa_garrafa = float(input())
-angulo_lancamento = float(input())
+# Simulando dados do lançamento como entrada do usuário
+dados_lancamento = {
+    'pressao': float(input()),
+    'volume_agua': float(input()),
+    'massa_foguete': float(input()),
+    'angulo_lancamento': float(input())
+}
+
+pressao_inicial_psi = dados_lancamento["pressao"]
+quantidade_agua_ml = dados_lancamento["volume_agua"]
+massa_garrafa = dados_lancamento["massa_foguete"]
+angulo_lancamento = dados_lancamento["angulo_lancamento"]
+
+all_launch_data = load_launch_data(launch_data_json_path)
+
+# Adicionar os novos dados do lançamento
+all_launch_data.append(dados_lancamento)
+
+# Salvar todos os dados de lançamento atualizados
+save_launch_data(all_launch_data, launch_data_json_path)
 
 # Conversões e cálculos
 pressao_inicial = pressao_inicial_psi * 6894.76  # Convertendo para pascals
@@ -73,7 +109,7 @@ plt.xlabel('Tempo (s)')
 plt.ylabel('Altura (m)')
 plt.title('Altura x Tempo')
 plt.grid(True)
-plt.savefig('grafico_simulacao_h.png')
+plt.savefig('./../docs/grafico_simulacao_h.png')
 plt.close()
 
 plt.plot(tempos, posicoes_x)
@@ -81,4 +117,4 @@ plt.xlabel('Tempo (s)')
 plt.ylabel('Distância Horizontal (m)')
 plt.title('Distância Horizontal x Tempo')
 plt.grid(True)
-plt.savefig('grafico_simulacao_dh.png')
+plt.savefig('./../docs/grafico_simulacao_dh.png')

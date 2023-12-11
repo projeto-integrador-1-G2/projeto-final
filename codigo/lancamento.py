@@ -3,6 +3,38 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from geopy.distance import geodesic
 from datetime import timedelta, datetime , time
+import json
+
+
+# Função para salvar os dados dos lançamentos no arquivo JSON
+def save_launch_data(launch_data, launch_data_path):
+    with open(launch_data_path, 'w') as file:
+        json.dump(launch_data, file, indent=4)
+
+# Função para carregar os dados dos lançamentos do arquivo JSON
+def load_launch_data(launch_data_path):
+    try:
+        with open(launch_data_path, 'r') as file:
+            launch_data = json.load(file)
+    except FileNotFoundError:
+        launch_data = []  # Se o arquivo não existir, começamos com uma lista vazia
+    return launch_data
+
+def find_last_launch_number(markdown_content):
+    
+    last_number = 0
+
+    for line in markdown_content:
+        if '### Lançamento' in line and 'X' not in line:  # Verifique se 'X' não está na linha
+            # Extrair o número do lançamento da linha
+            try:
+                number = int(line.split(' ')[-1].strip())
+                if number > last_number:
+                    last_number = number
+            except ValueError:
+                # Se houver um erro ao converter para int, ignorar a linha
+                pass
+    return last_number
 
 def time_diff_in_seconds(time1, time2):
     # Adicionando uma data arbitrária para converter para datetime
@@ -27,6 +59,16 @@ def plot_speed_graph(data, start_time, end_time, launch_number):
     # Converter 'Total Time' de milissegundos para segundos e ajustar para começar do zero
     filtered_data['Total Time'] = (filtered_data['Total Time'] - filtered_data.iloc[0]['Total Time']) / 1000
 
+    all_launch_data = load_launch_data('./../codigo/launch_data.json')
+    launch_data = all_launch_data[launch_number - 1]
+    # Adicionar os novos dados do lançamento
+    velocidade_media = np.mean(filtered_data['Adjusted Speed'])
+    launch_data['velocidade_media'] = velocidade_media
+    all_launch_data[launch_number - 1] = launch_data
+
+    save_launch_data(all_launch_data, './../codigo/launch_data.json')
+
+
     # Gráfico de Velocidade x Tempo
     plt.figure(figsize=(12, 10))
     plt.plot(filtered_data['Total Time'], filtered_data['Adjusted Speed'], label='Velocidade')
@@ -35,7 +77,7 @@ def plot_speed_graph(data, start_time, end_time, launch_number):
     plt.title('Gráfico de Velocidade x Tempo')
     plt.xticks(rotation=45)
     plt.legend()
-    plt.savefig(f'grafico_velocidade_{launch_number}.png')
+    plt.savefig(f'./../docs/grafico_velocidade_{launch_number}.png')
 
 # Função para plotar o gráfico de Posição x Tempo
 def plot_position_graph(data, start_time, end_time, launch_number):
@@ -64,7 +106,7 @@ def plot_position_graph(data, start_time, end_time, launch_number):
     plt.title('Gráfico de Distância Percorrida x Tempo')
     plt.xticks(rotation=45)
     plt.legend()
-    plt.savefig(f'grafico_distancia_lancamento_{launch_number}.png')
+    plt.savefig(f'./../docs/grafico_distancia_lancamento_{launch_number}.png')
 
 
 def plot_acceleration_graph(data, start_time, end_time,launch_number):
@@ -81,6 +123,15 @@ def plot_acceleration_graph(data, start_time, end_time,launch_number):
     # Converter 'Total Time' de milissegundos para segundos e ajustar para começar do zero
     filtered_data['Total Time'] = (filtered_data['Total Time'] - filtered_data.iloc[0]['Total Time']) / 1000
 
+    all_launch_data = load_launch_data('./../codigo/launch_data.json')
+    launch_data = all_launch_data[launch_number - 1]
+    # Adicionar os novos dados do lançamento
+    aceleracao_media = np.mean(filtered_data['Acceleration'])
+    launch_data['aceleracao_media'] = aceleracao_media
+    all_launch_data[launch_number - 1] = launch_data
+
+    save_launch_data(all_launch_data, './../codigo/launch_data.json')
+
     # Gráfico de Aceleração x Tempo
     plt.figure(figsize=(12, 8))
     plt.plot(filtered_data['Total Time'], filtered_data['Acceleration'], label='Aceleração', color='orange')
@@ -89,7 +140,7 @@ def plot_acceleration_graph(data, start_time, end_time,launch_number):
     plt.title('Gráfico de Aceleração x Tempo')
     plt.xticks(rotation=45)
     plt.legend()
-    plt.savefig(f'grafico_aceleracao_lancamento_{launch_number}.png')
+    plt.savefig(f'./../docs/grafico_aceleracao_lancamento_{launch_number}.png')
 
 # Inicializando listas para armazenar os horários de início e fim
 start_times = []
@@ -122,8 +173,16 @@ gps_data['Speed'] = pd.to_numeric(gps_data['Speed'], errors='coerce')
 gps_data["Total Time"] = pd.to_numeric(gps_data["Total Time"], errors='coerce')
 gps_data.dropna(subset=['Time', 'Speed', 'Total Time'], inplace=True)
 
+markdown_template_path = './../docs/template_lancamentoX.md'
+
+with open(markdown_template_path, 'r') as md_file:
+    markdown_content = md_file.readlines()
+
+last_launch_number = find_last_launch_number(markdown_content)
+
+
 # Processando cada par de horários
 for i, (start_time, end_time) in enumerate(zip(start_times, end_times)):
-    plot_acceleration_graph(gps_data, start_time, end_time, i+1)
-    plot_position_graph(gps_data, start_time, end_time, i+1)
-    plot_speed_graph(gps_data, start_time, end_time, i+1)
+    plot_acceleration_graph(gps_data, start_time, end_time, last_launch_number+i+1)
+    plot_position_graph(gps_data, start_time, end_time, last_launch_number+i+1)
+    plot_speed_graph(gps_data, start_time, end_time, last_launch_number+i+1)
