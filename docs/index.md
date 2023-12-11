@@ -1,3 +1,3 @@
 <script>
-    window.location.replace("/simulador/");
+    window.location.replace("/lancamentos/");
 </script>
