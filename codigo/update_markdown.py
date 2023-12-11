@@ -65,7 +65,7 @@ def add_new_launch_data(markdown_path, launch_data, graph_paths, last_launch_num
         md_file.writelines(markdown_content)
 
 # Caminho do arquivo Markdown
-markdown_template_path = './../docs/template_lancamentoX.md'
+markdown_template_path = './../docs/lancamentos.md'
 
 # Carregar os dados existentes
 all_launch_data = load_launch_data('./../codigo/launch_data.json')
