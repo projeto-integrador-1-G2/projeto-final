@@ -26,5 +26,5 @@ theme:
 
 nav:
   - Início:
-    - Consultar Voos: 
-      - Lançamento X: lancamentos.md
+  - Consultar Voos: 
+    - Lançamento X: lancamentos.md
