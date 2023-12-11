@@ -25,6 +25,6 @@ theme:
     - navigation.footer
 
 nav:
-  - Início:
+  - Início: index.md
   - Consultar Voos: 
     - Lançamento X: lancamentos.md
