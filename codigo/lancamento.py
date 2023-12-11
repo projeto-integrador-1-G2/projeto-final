@@ -4,6 +4,20 @@ import pandas as pd
 from geopy.distance import geodesic
 from datetime import timedelta, datetime , time
 
+def find_last_launch_number(markdown_content):
+    last_number = 0
+    for line in markdown_content:
+        if '### Lançamento' in line and 'X' not in line:  # Verifique se 'X' não está na linha
+            # Extrair o número do lançamento da linha
+            try:
+                number = int(line.split(' ')[-1].strip())
+                if number > last_number:
+                    last_number = number
+            except ValueError:
+                # Se houver um erro ao converter para int, ignorar a linha
+                pass
+    return last_number
+
 def time_diff_in_seconds(time1, time2):
     # Adicionando uma data arbitrária para converter para datetime
     dummy_date = datetime(2000, 1, 1)
