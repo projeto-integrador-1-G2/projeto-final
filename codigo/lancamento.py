@@ -173,7 +173,7 @@ gps_data['Speed'] = pd.to_numeric(gps_data['Speed'], errors='coerce')
 gps_data["Total Time"] = pd.to_numeric(gps_data["Total Time"], errors='coerce')
 gps_data.dropna(subset=['Time', 'Speed', 'Total Time'], inplace=True)
 
-markdown_template_path = './../docs/template_lancamentoX.md'
+markdown_template_path = './../docs/lancamentos.md'
 
 with open(markdown_template_path, 'r') as md_file:
     markdown_content = md_file.readlines()
