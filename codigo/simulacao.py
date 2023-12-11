@@ -25,10 +25,10 @@ def save_launch_data(launch_data, launch_data_path):
 # Solicitando entradas do usuário
 # Simulando dados do lançamento como entrada do usuário
 dados_lancamento = {
-    'pressao': input(),
-    'volume_agua': input(),
-    'massa_foguete': input(),
-    'angulo_lancamento': input()
+    'pressao': float(input()),
+    'volume_agua': float(input()),
+    'massa_foguete': float(input()),
+    'angulo_lancamento': float(input())
 }
 
 pressao_inicial_psi = dados_lancamento["pressao"]

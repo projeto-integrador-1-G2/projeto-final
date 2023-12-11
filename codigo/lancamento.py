@@ -3,9 +3,27 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from geopy.distance import geodesic
 from datetime import timedelta, datetime , time
+import json
+
+
+# Função para salvar os dados dos lançamentos no arquivo JSON
+def save_launch_data(launch_data, launch_data_path):
+    with open(launch_data_path, 'w') as file:
+        json.dump(launch_data, file, indent=4)
+
+# Função para carregar os dados dos lançamentos do arquivo JSON
+def load_launch_data(launch_data_path):
+    try:
+        with open(launch_data_path, 'r') as file:
+            launch_data = json.load(file)
+    except FileNotFoundError:
+        launch_data = []  # Se o arquivo não existir, começamos com uma lista vazia
+    return launch_data
 
 def find_last_launch_number(markdown_content):
+    
     last_number = 0
+
     for line in markdown_content:
         if '### Lançamento' in line and 'X' not in line:  # Verifique se 'X' não está na linha
             # Extrair o número do lançamento da linha
@@ -40,6 +58,16 @@ def plot_speed_graph(data, start_time, end_time, launch_number):
     filtered_data['Adjusted Speed'] = filtered_data['Speed'].apply(lambda x: x if x > 0.1 else 0)
     # Converter 'Total Time' de milissegundos para segundos e ajustar para começar do zero
     filtered_data['Total Time'] = (filtered_data['Total Time'] - filtered_data.iloc[0]['Total Time']) / 1000
+
+    all_launch_data = load_launch_data('./../codigo/launch_data.json')
+    launch_data = all_launch_data[launch_number - 1]
+    # Adicionar os novos dados do lançamento
+    velocidade_media = np.mean(filtered_data['Adjusted Speed'])
+    launch_data['velocidade_media'] = velocidade_media
+    all_launch_data[launch_number - 1] = launch_data
+
+    save_launch_data(all_launch_data, './../codigo/launch_data.json')
+
 
     # Gráfico de Velocidade x Tempo
     plt.figure(figsize=(12, 10))
@@ -94,6 +122,15 @@ def plot_acceleration_graph(data, start_time, end_time,launch_number):
 
     # Converter 'Total Time' de milissegundos para segundos e ajustar para começar do zero
     filtered_data['Total Time'] = (filtered_data['Total Time'] - filtered_data.iloc[0]['Total Time']) / 1000
+
+    all_launch_data = load_launch_data('./../codigo/launch_data.json')
+    launch_data = all_launch_data[launch_number - 1]
+    # Adicionar os novos dados do lançamento
+    aceleracao_media = np.mean(filtered_data['Acceleration'])
+    launch_data['aceleracao_media'] = aceleracao_media
+    all_launch_data[launch_number - 1] = launch_data
+
+    save_launch_data(all_launch_data, './../codigo/launch_data.json')
 
     # Gráfico de Aceleração x Tempo
     plt.figure(figsize=(12, 8))

@@ -1,4 +1,5 @@
 import json
+import os
 
 # Função para carregar os dados dos lançamentos do arquivo JSON
 def load_launch_data(launch_data_path):
@@ -41,15 +42,18 @@ def add_new_launch_data(markdown_path, launch_data, graph_paths, last_launch_num
     # Adicionar os caminhos dos gráficos ao novo lançamento
     for graph_path in graph_paths:
         graph_name = os.path.basename(graph_path)
-        new_launch_section.append(f'    <img src="{graph_name}_{new_launch_number}.png" alt="{graph_name.split(".")[0]}" width="200"/>\n')
+        new_launch_section.append(f'    <img src="./../docs/{graph_name}_{new_launch_number}.png" alt="{graph_name.split(".")[0]}" width="200"/>\n')
     new_launch_section.append('</div>\n\n')
 
     # Adicionar os dados do novo lançamento
     new_launch_section += [
         '#### Dados do Lançamento:\n',
-        f'    - Pressão:  {launch_data["pressure"]} Pa\n',
-        f'    - Volume d’água: {launch_data["water_volume"]} L\n',
-        f'    - Massa do Foguete: {launch_data["rocket_mass"]} kg\n',
+        f'    - Pressão:  {launch_data["pressao"]} Pa\n',
+        f'    - Volume d’água: {launch_data["volume_agua"]} L\n',
+        f'    - Massa do Foguete: {launch_data["massa_foguete"]} kg\n',
+        f'    - Ângulo do Lançamento: {launch_data["angulo_lancamento"]}°\n',
+        f'    - Velocidade Média: {launch_data["velocidade_media"]} kg\n',
+        f'    - Aceleração Média: {launch_data["aceleracao_media"]} kg\n',
         '\n'
     ]
 
@@ -82,9 +86,8 @@ for i in range(3):
         markdown_content = md_file.readlines()
 
     last_launch_number = find_last_launch_number(markdown_content)
-    if last_launch_number == 0:
-        last_launch_number = 1  # Definir para 1 se for o primeiro lançamento
-    launch_data = all_launch_data[last_launch_number-1] if len(all_launch_data) > 1 else None
+
+    launch_data = all_launch_data[last_launch_number] if len(all_launch_data) > 1 else None
 
     # Agora você pode chamar `add_new_launch_data` com `last_launch_number`
 
