@@ -25,7 +25,6 @@ theme:
     - navigation.footer
 
 nav:
-  - Início:
-    - Simular Voos: simulador.md
-    - Consultar Voos: 
-      - Lançamento X: template_lancamentoX.md
+  - Início: index.md
+  - Consultar Voos: 
+    - Lançamento X: lancamentos.md
