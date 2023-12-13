@@ -75,9 +75,9 @@ all_launch_data = load_launch_data('./../codigo/launch_data.json')
 
 # Exemplo de caminhos dos gráficos (assumindo que eles já foram criados e salvos na pasta 'docs')
 graph_paths_example = [
-    './../docs/grafico_aceleracao_lancamento',
-    './../docs/grafico_distancia_lancamento',
-    './../docs/grafico_velocidade_lancamento'
+    '/grafico_aceleracao_lancamento',
+    '/grafico_distancia_lancamento',
+    '/grafico_velocidade_'
 ]
 
 # Depois de encontrar o último número de lançamento, se for 0, definir para 1 (primeiro lançamento)
