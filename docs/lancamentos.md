@@ -8,7 +8,7 @@ hide:
 ## Consultar Voos
 ### Lançamento 1
 <div style="text-align: center; display: flex; justify-content: space-around;">
-    <img src="./grafico_aceleracao_lancamento_1.png" alt="grafico_aceleracao_lancamento" width="200"/>
+    <img src="./../grafico_aceleracao_lancamento_1.png" alt="grafico_aceleracao_lancamento" width="200"/>
     <img src="/grafico_distancia_lancamento_1.png" alt="grafico_distancia_lancamento" width="200"/>
     <img src="/grafico_velocidade_1.png" alt="grafico_velocidade_lancamento" width="200"/>
 </div>
