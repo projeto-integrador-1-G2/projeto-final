@@ -1,0 +1,50 @@
+[
+    {
+        "pressao": 21.0,
+        "volume_agua": 300.0,
+        "massa_foguete": 0.3,
+        "angulo_lancamento": 35.0,
+        "aceleracao_media": -0.0031066295982577602,
+        "velocidade_media": 0.1814285714285714
+    },
+    {
+        "pressao": 80.0,
+        "volume_agua": 300.0,
+        "massa_foguete": 0.3,
+        "angulo_lancamento": 35.0,
+        "aceleracao_media": -0.0031066295982577602,
+        "velocidade_media": 0.1814285714285714
+    },
+    {
+        "pressao": 80.0,
+        "volume_agua": 300.0,
+        "massa_foguete": 1.0,
+        "angulo_lancamento": 35.0,
+        "aceleracao_media": -0.0031066295982577602,
+        "velocidade_media": 0.1814285714285714
+    },
+    {
+        "pressao": 80.0,
+        "volume_agua": 300.0,
+        "massa_foguete": 1.2,
+        "angulo_lancamento": 45.0
+    },
+    {
+        "pressao": 80.0,
+        "volume_agua": 500.0,
+        "massa_foguete": 0.3,
+        "angulo_lancamento": 35.0
+    },
+    {
+        "pressao": 21.0,
+        "volume_agua": 1000.0,
+        "massa_foguete": 0.3,
+        "angulo_lancamento": 35.0
+    },
+    {
+        "pressao": 40.0,
+        "volume_agua": 1000.0,
+        "massa_foguete": 0.3,
+        "angulo_lancamento": 35.0
+    }
+]
